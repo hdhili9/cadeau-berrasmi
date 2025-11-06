@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Marry Me?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      background: linear-gradient(135deg, #ffb6c1, #ff69b4, #ffa6c9, #ffc0cb);
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      margin-bottom: 40px;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn {
+      padding: 15px 40px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 15px;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background-color: #fff;
+      color: #ff69b4;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    #yesBtn:hover {
+      transform: scale(1.1);
+      background-color: #ffe6f2;
+    }
+
+    #noBtn {
+      background-color: #fff0f5;
+      color: #ff1493;
+      position: absolute;
+      transition: 0.2s;
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 1.8rem;
+      color: #fff;
+      opacity: 0;
+      animation: fadeText 2s ease forwards;
+      display: none;
+    }
+
+    @keyframes fadeText {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Floating hearts animation */
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      font-size: 24px;
+      color: #fff;
+      animation: floatHearts 6s linear infinite;
+      opacity: 0.8;
+      z-index: 999;
+    }
+
+    @keyframes floatHearts {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💍 Will you marry me, Lanna? 💖</h1>
+
+  <div class="buttons">
+    <button id="yesBtn" class="btn">Yes 💕</button>
+    <button id="noBtn" class="btn">No 😅</button>
+  </div>
+
+  <div id="message">💖 You just made me the happiest person alive! 💖</div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const message = document.getElementById('message');
+
+    // Make NO button run away
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - noBtn.clientWidth - 50);
+      const y = Math.random() * (window.innerHeight - noBtn.clientHeight - 50);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    // When YES is clicked
+    yesBtn.addEventListener('click', () => {
+      message.style.display = 'block';
+      setTimeout(() => message.style.opacity = 1, 100);
+
+      // Start hearts animation
+      const createHeart = () => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+      };
+      const interval = setInterval(createHeart, 300);
+
+      // Redirect after 5 seconds
+      setTimeout(() => {
+        clearInterval(interval);
+        window.location.href = "cadeau.html"; // <-- replace this
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
